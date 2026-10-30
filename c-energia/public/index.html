@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo C · Viabilidad Solar y Eólica</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+  <header>
+    <a class="volver" href="../../">← Panel de Demos</a>
+    <h1>⚡ Demo C · Viabilidad para Granjas Solares / Eólicas</h1>
+    <p class="sub">Hacé clic en cualquier punto del mapa (o escribí coordenadas) y la app consulta la <b>climatología 2001–2025</b> de la NASA POWER (<code>ALLSKY_SFC_SW_DWN</code> y <code>WS10M</code>) para estimar el <b>rendimiento anual</b> de una granja solar y la <b>aptitud eólica</b>, con un gráfico comparando ubicaciones típicas.</p>
+  </header>
+
+  <section class="grid2">
+    <div>
+      <div id="mapa"></div>
+      <p class="nota" id="mapaNota">Clic en el mapa · Si el mapa no carga (sin Internet), usá las coordenadas o los botones de abajo.</p>
+    </div>
+    <div class="panel formulario">
+      <label>Coordinadas del terreno (lat, lon)</label>
+      <input type="text" id="latlon" placeholder="-27.7842,-64.2644" />
+      <button id="btnIR">Calcular viabilidad</button>
+      <div class="atalho">
+        <span>Acceso rápido:</span>
+        <button class="mini" data-l="-27.7842,-64.2644">Sgo. del Estero</button>
+        <button class="mini" data-l="-32.8924,-68.8458">Mendoza (Uspallata)</button>
+        <button class="mini" data-l="-40.7167,-64.2513">Neuquén</button>
+        <button class="mini" data-l="-22.1899,-65.3477">Jujuy (La Quiaca)</button>
+        <button class="mini" data-l="-51.6230,-69.2165">El Calafate</button>
+      </div>
+      <label>Tamaño de la granja (MWp solares / MW eólicos)</label>
+      <input type="number" id="mw" value="1" min="0.1" step="0.5" />
+      <p class="nota">Los valores resultantes escalan linealmente con el tamaño ingresado.</p>
+    </div>
+  </section>
+
+  <section id="cargando" class="oculto">⏳ Consultando climatología NASA…</section>
+  <section id="error" class="oculto"></section>
+
+  <main id="salida" class="oculto">
+    <section class="resumen" id="kpi"></section>
+    <section class="duo">
+      <div class="tarjetaG">
+        <h3>☀️ Radiación solar mensual (kWh/m²/día)</h3>
+        <canvas id="cSolar" width="640" height="240"></canvas>
+      </div>
+      <div class="tarjetaG">
+        <h3>💨 Viento medio mensual a 10 m (m/s)</h3>
+        <canvas id="cViento" width="640" height="240"></canvas>
+      </div>
+    </section>
+
+    <section class="duo">
+      <div class="tarjetaG texto">
+        <h3>🧮 Cálculo solar (explicito, con supuestos)</h3>
+        <ul id="calcSolar"></ul>
+      </div>
+      <div class="tarjetaG texto">
+        <h3>🌬️ Cálculo eólico (explicito, con supuestos)</h3>
+        <ul id="calcEolico"></ul>
+      </div>
+    </section>
+
+    <h2>Comparativa de ubicaciones típicas</h2>
+    <canvas id="cComparar" width="900" height="260"></canvas>
+    <p class="nota">Se pidió la climatología de 5 ubicaciones preselgadas para armar la comparación (5 llamados, cacheados en el servidor). El punto actual aparece resaltado.</p>
+  </main>
+
+  <footer>Panel de Demos · NASA Space Apps 2026 · Santiago del Estero (14–15 nov)</footer>
+  <script src="app.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // inicializa el mapa si Leaflet cargó; si no, queda el modo manual
+    window.addEventListener('load', () => { if (window.L && window.initMapa) window.initMapa(); });
+  </script>
+</body>
+</html>

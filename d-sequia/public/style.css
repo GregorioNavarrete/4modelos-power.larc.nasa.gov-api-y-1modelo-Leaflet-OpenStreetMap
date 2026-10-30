@@ -1,0 +1,39 @@
+:root{
+  --verde:#1a7f37; --amarillo:#c2870b; --rojo:#d93025; --azul:#0b57d0; --agua:#1976d2;
+  --bg:#f6f8fa; --card:#fff; --linea:#d0d7de; --texto:#1f2328;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--texto);padding:0 16px 40px}
+header{padding:24px 0 8px}
+header .volver{font-size:13px;text-decoration:none;color:var(--azul)}
+header h1{font-size:26px;margin:10px 0 6px}
+header .sub{max-width:980px;color:#57606a;font-size:14px;line-height:1.5}
+.panel{background:var(--card);border:1px solid var(--linea);border-radius:10px;padding:16px;margin:14px 0}
+.campo{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.campo label{font-weight:700;font-size:14px}
+.campo select,.campo input{padding:8px 10px;border:1px solid var(--linea);border-radius:8px;font-size:14px;min-width:220px}
+button{padding:9px 20px;border:0;border-radius:8px;background:var(--rojo);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+button:hover{filter:brightness(1.1)}
+button:disabled{opacity:.6;cursor:wait}
+.nota{font-size:12.5px;color:#57606a;line-height:1.5;margin-top:10px}
+h2{margin:20px 0 8px;font-size:17px}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;background:var(--card);border:1px solid var(--linea);border-radius:10px;padding:18px;margin-top:14px}
+.farol{width:140px;height:140px;border-radius:50%;display:grid;place-content:center;text-align:center;color:#fff;background:var(--fcolor,#888)}
+.farol span{font-size:16px;font-weight:800;letter-spacing:.02em}
+.farol small{font-size:11px;opacity:.9;margin-top:4px}
+.veredicto h2{margin:0 0 6px}
+.veredicto p{line-height:1.6;font-size:14.5px}
+.resumen{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.tarjeta{background:var(--card);border:1px solid var(--linea);border-radius:10px;padding:14px 16px}
+.tarjeta h3{font-size:13px;color:#57606a;font-weight:600;margin-bottom:4px}
+.tarjeta p{font-size:21px;font-weight:700}
+.tarjeta .sub{font-size:12px;color:#57606a;font-weight:400}
+#grafico{width:100%;max-width:940px;background:var(--card);border:1px solid var(--linea);border-radius:10px}
+.v{color:var(--verde)} .a{color:var(--amarillo)} .r{color:var(--rojo)}
+.ot{color:#57606a;font-size:13px}
+.oculto{display:none}
+#seccion4{background:#fff;border:1px solid var(--linea);border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.6;margin-top:20px}
+#seccion4 h2{margin:0 0 8px}
+#seccion4 ul{margin-left:22px;margin-top:6px;list-style:disc}
+#seccion4 li{margin-top:4px}
+footer{margin-top:30px;font-size:12px;color:#8b949e;text-align:center}

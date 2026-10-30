@@ -1,0 +1,12 @@
+{
+  "name": "demo-d-sequia",
+  "version": "1.0.0",
+  "description": "Demo D: Monitor de Alerta Temprana de Estres Hidrico y Sequias (NASA POWER precip + temp -> balance hidrico, semaforo verde/amarillo/rojo)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

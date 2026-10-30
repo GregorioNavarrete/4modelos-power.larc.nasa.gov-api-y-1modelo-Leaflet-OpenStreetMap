@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel · Demos Climáticas — NASA Space Apps</title>
+  <link rel="stylesheet" href="panel.css" />
+</head>
+<body>
+  <header>
+    <h1>🛰️ Panel de Demos Climáticas</h1>
+    <p class="sub">Cuatro demos web construidas con <b>HTML + CSS + JavaScript + Express</b> sobre la API abierta <b>NASA POWER</b> (sin claves ni registro). Cada una es autónoma (<code>npm start</code> en su carpeta) y además este panel las sirve todas juntas. ¿Cómo se corre? <code>cd demos && npm install && npm start</code> → <code>http://localhost:3100</code>.</p>
+    <nav class="salta">
+      <a href="#a">A · Agricultura</a>
+      <a href="#b">B · Turismo</a>
+      <a href="#c">C · Energía</a>
+      <a href="#d">D · Sequía</a>
+      <a href="#e">E · Mapas & Delivery</a>
+      <a href="#stack">Stack común</a>
+    </nav>
+  </header>
+
+  <!-- ══════════════════ DEMO A ══════════════════ -->
+  <section class="demo" id="a">
+    <div class="cabezal a">
+      <span class="badge">Demo A</span>
+      <h2>🌱 Simulador de Agricultura Inteligente y Resiliente</h2>
+      <a class="abrir" href="a-agricultura/">Abrir demo →</a>
+    </div>
+    <div class="cuerpo">
+      <p class="lead">El productor selecciona su ubicación; la app descarga los <b>últimos 5 años</b> de <code>T2M_MAX</code>, <code>T2M_MIN</code>, <code>PRECTOTCORR</code> y <code>RH2M</code> de NASA POWER, los cruza con una tabla de requerimientos de 8 cultivos y genera un <b>“Semáforo de Riesgo Agrícola”</b> (🟢🟡🔴 por cultivo), recomendación de <b>riego por goteo</b> (mm/día y m³/ha), sugerencia de <b>mallas de sombreo</b> y una <b>ventana de siembra sugerida</b> calculada con el promedio histórico de 5 años.</p>
+      <dl>
+        <dt>Alcance</dt><dd>1 ubicación por consulta · 8 cultivos de la región NOA/NEA + pampa · ventana histórica de 2–5 años · semáforo + recomendación. <b>No</b> incluye pronóstico futuro de temporada ( eso es la etapa 2).</dd>
+        <dt>Aplicaciones base (API/datos)</dt><dd>NASA POWER daily/point (T2M_MAX, T2M_MIN, PRECTOTCORR, RH2M; fallback Open-Meteo archive); tabla de cultivos embebida en <code>app.js</code> con umbrales editables.</dd>
+        <dt>Qué se busca con esta demo/etapa</dt><dd>Probar el <b>concepto</b> “datos satelitales → decisión agronómica” sin modelar nada: si un jurado o productor entiende el semáforo en 30 segundos, la tesis funciona.</dd>
+        <dt>Qué mejorar</dt><dd>① Umbrales de cultivo validados por agronomía local (INTA) en vez de genéricos; ② usar ET0 real (agregar ALLSKY) en lugar de solo precip; ③ WS radial no — agregar heladas específicas por fase (siembra→floración→cosecha).</dd>
+        <dt>Qué agregar</dt><dd>Fase completa de siembra por fechas (rango, no solo fecha); base de más de 30 cultivos; gráfico de lluvia por mes; comparador entre cultivos; exportar informe PDF.</dd>
+        <dt>A qué interfaz/aplicación agregar</dt><dd>Agregar en la <b>Demo A</b> un mapa para elegir el lote (como la C), y como <b>interfaz móvil</b> una PWA con notificaciones semanales. Integrable con la <b>Demo D</b> (si el semáforo D está en rojo, A sugiere no sembrar raíces profundas).</dd>
+        <dt>Ideas de negocio</dt><dd>① Suscripción freemium municipal/base para cooperativas (plan B: reportes sistemáticos de los agricultores de la zona); ② API B2B para agri-fintechs (precios de riego por lote); ③ licencia a gobiernos provinciales para “recomendador de siembra” en el portal del INTA; ④ upsell con sensores de campo (POWER queda como capa macro).</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ══════════════════ DEMO B ══════════════════ -->
+  <section class="demo" id="b">
+    <div class="cabezal b">
+      <span class="badge">Demo B</span>
+      <h2>🎪 Planificador de Turismo y Eventos Climáticos Seguros</h2>
+      <a class="abrir" href="b-turismo/">Abrir demo →</a>
+    </div>
+    <div class="cuerpo">
+      <p class="lead">El usuario elige <b>fecha(s) futuras</b> del evento; la app compara esa ventana calendario en <b>25 años</b> de historial POWER y calcula un <b>Índice de Confort y Riesgo (0–100)</b> con P(calor ≥ 32 °C)·0.45 + P(lluvia ≥ 2 mm)·0.25 + P(viento ≥ 39 km/h)·0.30, gauge semáforo, alertas dominantes y <b>fechas alternativas más seguras</b> (±90 días) ordenadas por riesgo.</p>
+      <dl>
+        <dt>Alcance</dt><dd>1 evento (rango de 1–30 días) · 1 ubicación · probabilidades históricas por calendario (≠ pronóstico) · 5 ubicaciones pre-cargadas.</dd>
+        <dt>Aplicaciones base (API/datos)</dt><dd>NASA POWER daily/point 2000–2025 (T2M_MAX, WS10M, PRECTOTCORR) — misma familia de datos que la usó el ganador SkySense; pesos del índice inspirados (recalibrados) en la fórmula DCRA v3 de Astro Sweepers.</dd>
+        <dt>Qué se busca con esta demo/etapa</dt><dd>Validar que las <b>probabilidades históricas</b> son útiles y comunicables para decisiones de agenda (“es un desafío, pero con datos”) y tenencia de un índice único explicativo.</dd>
+        <dt>Qué mejorar</dt><dd>① WS10M es media diaria: agregar ráfagas (G2MAX si está en POWER) y PBL; ② horario del evento: usar datos horarios (POWER hourly o Open-Meteo) para sugerir <b>franja horaria</b> mejor, no solo fecha; ③ índice ajustable con pesos por tipo de evento (maratón ≠ feria ≠ casamiento).</dd>
+        <dt>Qué agregar</dt><dd>Sugerencia de franja horaria; perfiles por tipo de evento; historial visual calendario-año; alertas automáticas D-7/D-2 (cron + email/WhatsApp); multi-ciudad para eventos itinerantes.</dd>
+        <dt>A qué interfaz/aplicación agregar</dt><dd>En la <b>Demo B</b>, un calendario visual interactivo (resaltando fechas por riesgo) y links a la <b>Demo AQ</b>. Como aplicación externa: plugin para Google Calendar / Eventbrite que “etiquete” eventos con su riesgo climático estructurado.</dd>
+        <dt>Ideas de negocio</dt><dd>① SaaS para organizadores (tier por eventos/mes); ② add-on para plataformas de venta de entradas (badge “riesgo climático: bajo”); ③ seguro paramétrico de eventos junto a broker (P(lluvia) del histórico cotiza el riesgo); ④ licencia a turismo provincial para campañas “fechas garantizadas”.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ══════════════════ DEMO C ══════════════════ -->
+  <section class="demo" id="c">
+    <div class="cabezal c">
+      <span class="badge">Demo C</span>
+      <h2>⚡ Viabilidad para Granjas Solares / Eólicas</h2>
+      <a class="abrir" href="c-energia/">Abrir demo →</a>
+    </div>
+    <div class="cuerpo">
+      <p class="lead">Clic en el mapa (Leaflet) o coordenadas → POWER <b>climatology 2001–2025</b>: <code>ALLSKY_SFC_SW_DWN</code> (solar) y <code>WS10M</code> (eólico). Devuelve <b>GHI anual</b>, <b>kWh/kg del tamaño de granja ingresado</b>, <b>hogares abastecibles</b> (a 3.500 kWh/hogar/año), densidad de potencia eólica con factor de planta heurístico, gráficos mensuales y <b>comparativa de 5 ubicaciones</b> guías (Sgo. Estero, Mendoza, Neuquén, Jujuy, El Calafate).</p>
+      <dl>
+        <dt>Alcance</dt><dd>Puntual (clic mapa) · estimado de primer orden (NO estudio de factibilidad) · solar sólido, eólico servidor conservador (viento a 10 m, no altura de eje).</dd>
+        <dt>Aplicaciones base (API/datos)</dt><dd>NASA POWER climatology/point (ALLSKY_SFC_SW_DWN, WS10M, T2M_MAX) + Leaflet/OpenStreetMap (CDN).</dd>
+        <dt>Qué se busca con esta demo/etapa</dt><dd>Que el jurado/inversor <b>vea la fórmula completa</b> con supuestos etiquetados (PR 0.8, CF heurístico) y entienda que POWER da un primer filtro territorial gratis, sin mediciones de campo.</dd>
+        <dt>Qué mejorar</dt><dd>① Corregir el eólico usando WS10M → altura de eje (ley log/perfil de potencia; NASA da WS10M en superficie, hay que extrapolar) ② usar <code>TOA</code> + anguleo óptimo de paneles (inclinar según lat); ③ sombras y地形: incluir DEM (SRTM) para pendientes.</dd>
+        <dt>Qué agregar</dt><dd>ROI simple (CAPEX editable + tarifa ingresada ≈ payback); ranking de los 20 puntos de la provincia llamados por lote; exportación CSV para el técnico; capa de parques existentes (contexto de red); API de <b>red eléctrica</b> (distancia a la subestación).</dd>
+        <dt>A qué interfaz/aplicación agregar</dt><dd>Cambiar la tabla comparativa por un <b>mapa de calor provincial</b> (grid ~0.5° caminado); integrar en la <b>Demo D</b> (con clima extremo, calendario solar sufre). Como app externa: plugin QGIS para analistas de municipios.</dd>
+        <dt>Ideas de negocio</dt><dd>① Freemium para ciudadanos/propietarios (lote único gratis; multi-lote pagado); ② lead-gen para desarrolladores EPC (te dijimos el lote, ellos la medición); ③ licencia a bancos/cooperativas para screening de proyectos; ④ Gobierno: plataforma provincial de “mapa de aptitud renovable”.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ══════════════════ DEMO D ══════════════════ -->
+  <section class="demo" id="d">
+    <div class="cabezal d">
+      <span class="badge">Demo D</span>
+      <h2>🚨 Alerta Temprana de Estrés Hídrico y Sequías</h2>
+      <a class="abrir" href="d-sequia/">Abrir demo →</a>
+    </div>
+    <div class="cuerpo">
+      <p class="lead">Dashboard con <b>farol verde/amarillo/rojo</b>: precip acumulada vs ET0 (Hargreaves, FAO-56) en una ventana <b>90 días</b>, déficit hídrico <b>ΣP−ΣET0</b> y <b>percentil</b> de ese periodo contra los 5 años del historial (época equivalente ±20 días). Grafica 180 días de lluvia diaria + déficit móvil 30 d. Todo el criterio queda expuesto en una sección de transparencia.</p>
+      <dl>
+        <dt>Alcance</dt><dd>1 punto por consulta · ventana 90 días (configurable en código) · 5 años de historial · visor diagnóstico, no emitirá avisos oficiales.</dd>
+        <dt>Aplicaciones base (API/datos)</dt><dd>NASA POWER daily/point (PRECTOTCORR, T2M_MAX, T2M_MIN); Hargreaves FAO-56 (ec. 52) con Ra calculada por latitud/día del año (estándar astronómico, no de la API).</dd>
+        <dt>Qué se busca con esta demo/etapa</dt><dd>Demostrar un <b>indicador útil para defensa civil</b> (P/E0 y percentil histórico) computable solo con NASA POWER, sin datos locales de precitaciones de estación.</dd>
+        <dt>Qué mejorar</dt><dd>① Calibrar los umbrales del semáforo por cuenca (el −260/−160 mm de la demo son genéricos semiáridos); ② ET real de cultivo (multiplicar ET0 × Kc); ③ incluir el índice SPI (swap de precipitación estandarizado), estándar de sequía; ④ resolución: POWER 1° (~100 km) es tosca para cuencas chicas.</dd>
+        <dt>Qué agregar</dt><dd>Multi-zona (tabla de municipios ordenados por risk); alertas por email/WhatsApp/sirena (cron diario); API para organismos que integren a su propio tablero; histórico interanual visual (bandas 25°/75°).</dd>
+        <dt>A qué interfaz/aplicación agregar</dt><dd>En la <b>Demo D</b>, un administrador de “ zonas vigiladas” con set-and-forget. Interfaz externa: módulo dentro de un <b>tablero municipal</b> (estilo `Sistema de Alerta Temprana` municipal) o widget embebible en el sitio de Defensa Cvil; datador para la <b>Demo A</b> (semáforo rojo → el simulador sugiere cultivos de ciclo corto).</dd>
+        <dt>Ideas de negocio</dt><dd>① Suscripción municipal/defensa civil (SaaS por zona); ② API B2B para aseguradoras (disparo de pagos paramétricos de sequía); ③ informe mensual de estrés hídrico para coordinadora de cuenca; ④ mojón de “seguro paramétrico” con P99 histórico como trigger.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ══════════════════ DEMO E ══════════════════ -->
+  <section class="demo" id="e">
+    <div class="cabezal e">
+      <span class="badge">Demo E</span>
+      <h2>🗺️ Funciones de Mapas + Pedido en Vivo (Leaflet / OpenStreetMap)</h2>
+      <a class="abrir" href="e-mapas/">Abrir demo →</a>
+    </div>
+    <div class="cuerpo">
+      <p class="lead"><b>3 pestañas:</b> ① <b>Explorador</b> con todas las funciones de la API de mapas gratuita (marcadores arrastrables, distancias línea recta entre personas — matriz todes-con-todes, radios de cobertura configurables, zonas poligonales con área en hectáreas, medición de rutas punto por punto, geolocalización GPS, buscador de direcciones Nominatim y cambio de capas OSM/Satélite/Dark); ② <b>Pedido en Vivo</b>: mapa actualizado del delivery con el cadete 🛵 moviéndose por la calle en tiempo real, ETA por velocidad, distancia restante, barra de progreso, pasos del pedido (confirmado→preparado→en camino→entregado) y <b>geocerca</b>: cuando entra en el radio elegido salta la notificación “está llegando”;</p>
+      <dl>
+        <dt>Alcance</dt><dd>Todo cliente-side (sin backend para mapas) · 1 mapa por pestaña · simulación del cadete sobre waypoints reales de Sgo. del Estero con velocidad editable (10–60 km/h).<b> NO</b> incluye routing por calles real (OSRM) ni posiciones de push reales: es la cáscara completa de la mecánica con datos mock.</dd>
+        <dt>Aplicaciones base (API/librerías)</dt><dd>Leaflet 1.9.4 (BSD-2, gratis) · tiles OpenStreetMap (© OSM contributors) + capas Esri World Imagery / CARTO dark · Nominatim para geocodificar (1 req/s, sin clave) · Haversine + área esférica propias · <code>setInterval</code> de 250 ms para simular el movimiento en vivo.</dd>
+        <dt>Qué se busca con esta demo/etapa</dt><dd>Que el jurado vea la <b>mecánica completa de una app de delivery sobre mapa gratuito</b>: herramientas para operar (radios, zonas, distancias, dirección) y la pantalla clave negocio “¿dónde está mi pedido?” con notificación de llegada. Todo en un solo HTML sin claves.</dd>
+        <dt>Qué mejorar</dt><dd>① Segmentar rutas por calles reales con <b>OSRM</b> (gratuito, sin clave) en vez de waypoints mock; ② velocidad con curva de aceleración, semáforos y tramos de espera; ③ distancia “en calle” en el cobro en lugar de línea recta; ④ multipedidos simultáneos (varios cadetes con clustering de marcadores); ⑤ GPS real como “modo cadete” (PRG pidiendo <code>navigator.geolocation.watchPosition</code>).</dd>
+        <dt>Qué agregar</dt><dd>Tracking por WebSocket real (navegador + servidor Socket.io) para que el cadete sea el teléfono del repartidor; historial de recorriedo con replay; comparedora de ETAs entre cadetes; encuadre automático <code>fitBounds</code> pedido↔cadete; tema oscuro consistente; notificaciones push reales (Web Push).</dd>
+        <dt>A qué interfaz/aplicación agregar</dt><dd>Esta demo es (a) el módulo de logística de la <b>Demo A</b> (hacer llegar insumos/servicios), (b) nueva vista de la <b>Demo D</b> con la “patrulla” de defensa civil, o (c) opción de producto independiente de delivery. Se integra también como pantalla embebible en <b>b-turismo</b> (traslados a eventos).</dd>
+        <dt>Ideas de negocio</dt><dd>① MVP de <b>plataforma de logística municipal</b>; ② white-label para mercados/restaurantes locales (rappi-casero); ③ add-on de “tracking del pedido” para lecherías/viveros con cadete; ④ API de geocerca + ETA B2B para pymes de logística.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ══════════════════ STACK COMUN ══════════════════ -->
+  <section class="demo" id="stack">
+    <div class="cabezal s">
+      <span class="badge">①</span>
+      <h2>Stack común y decisiones técnicas</h2>
+    </div>
+    <div class="cuerpo">
+      <dl>
+        <dt>Qué corre y en qué puerto</dt>
+        <dd>
+          <table class="mini">
+            <tr><th>Proyecto</th><th>Carpeta</th><th>npm start → puerto</th><th>Endpoint principal</th><th>API usada</th></tr>
+            <tr><td>A · Agricultura</td><td><code>demos/a-agricultura/</code></td><td>3101</td><td><code>/api/agro</code></td><td>POWER daily (+Open-Meteo fallback)</td></tr>
+            <tr><td>B · Turismo</td><td><code>demos/b-turismo/</code></td><td>3102</td><td><code>/api/historico</code></td><td>POWER daily 2000–2025</td></tr>
+            <tr><td>C · Energía</td><td><code>demos/c-energia/</code></td><td>3103</td><td><code>/api/clima</code></td><td>POWER climatology 2001–2025</td></tr>
+            <tr><td>D · Sequía</td><td><code>demos/d-sequia/</code></td><td>3104</td><td><code>/api/series</code></td><td>POWER daily 5 años</td></tr>
+            <tr><td>E · Mapas/Delivery</td><td><code>demos/e-mapas/</code></td><td>3105</td><td>— (todo cliente-side)</td><td>Leaflet + OpenStreetMap + Nominatim</td></tr>
+            <tr><td><b>Panel</b></td><td><code>demos/</code></td><td><b>3100</b> (las sirve todas)</td><td>—</td><td>—</td></tr>
+          </table>
+        </dd>
+        <dt>Arquitectura</dt><dd>Navegador (HTML+CSS+JS vanilla, gráficos <code>canvas</code> sin librerías) → Express (static + proxy con <b>caché</b> TTL 15 min y <b>timeout</b>) → NASA POWER. Sin claves, sin registro.</dd>
+        <dt>Tratamiento de datos</dt><dd>El valor de relleno <code>-999</code> de POWER se convierte en <code>null</code> y se excluye de promedios. Los umbrales agronómicos/energéticos son <b>criterios de la demo editables</b> (app.js) y se muestran como tales en cada página (“De dónde salen los números”).</dd>
+        <dt>Fallback</dt><dd>La Demo A degrada a Open-Meteo archive si POWER cae (visible en pantalla: “Open-Meteo (fallback)”).</dd>
+        <dt>Mapa</dt><dd>Leaflet por CDN (solo en Demo C); si no hay Internet quedan los botones/inserción manual de coordenadas.</dd>
+        <dt>Siguiente recurso cuandoPOWER falle</dt><dd>Ninguna llamada crítica depende de rondas: los endpoints deben seguir la regla “timeouts cortos + caché + mensaje de error claro”.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <footer>Demás clic — construido para Santiago del Estero · NASA Space Apps 2026 (14–15 nov) · Datos: NASA POWER (Gioconda, MERRA-2, CERES SYN1deg), API abierta sin clave.</footer>
+</body>
+</html>

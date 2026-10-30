@@ -1,0 +1,36 @@
+:root{
+  --verde:#1a7f37; --amarillo:#e8a80b; --rojo:#d93025; --azul:#0b57d0;
+  --bg:#f3f6fa; --card:#fff; --linea:#d0d7de; --texto:#1f2328;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--texto);padding:0 18px 50px;max-width:1100px;margin:0 auto}
+header{padding:34px 0 12px}
+header h1{font-size:30px;margin-bottom:8px}
+header .sub{color:#57606a;font-size:14.5px;line-height:1.6;max-width:900px}
+header .sub code{background:#eaeef2;border-radius:5px;padding:1px 6px;font-size:13px}
+.salta{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.salta a{background:#fff;border:1px solid var(--linea);border-radius:999px;padding:8px 16px;text-decoration:none;color:var(--texto);font-size:14px;font-weight:600}
+.salta a:hover{border-color:var(--azul);color:var(--azul)}
+section{margin-top:26px;border-radius:14px;overflow:hidden;border:1px solid var(--linea);background:var(--card)}
+.cabezal{padding:18px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.cabezal h2{font-size:20px;flex:1;min-width:240px}
+.cabezal.a{background:linear-gradient(90deg,#e6ffef,#fff)}
+.cabezal.b{background:linear-gradient(90deg,#e7f0ff,#fff)}
+.cabezal.c{background:linear-gradient(90deg,#fff7e0,#fff)}
+.cabezal.d{background:linear-gradient(90deg,#ffe8e6,#fff)}
+.cabezal.e{background:linear-gradient(90deg,#f1e8ff,#fff)}
+.cabezal.s{background:linear-gradient(90deg,#eef1ff,#fff)}
+.badge{background:#1f2328;color:#fff;border-radius:999px;padding:5px 13px;font-size:12.5px;font-weight:700}
+.abrir{background:var(--azul);color:#fff;text-decoration:none;border-radius:8px;padding:9px 16px;font-size:14px;font-weight:600;white-space:nowrap}
+.abrir:hover{filter:brightness(1.1)}
+.cuerpo{padding:18px 22px 24px}
+.lead{font-size:15px;line-height:1.65;margin-bottom:14px;max-width:960px}
+dl{display:grid;grid-template-columns:200px 1fr;gap:10px 18px;font-size:14px}
+dt{font-weight:700;font-size:13px;color:#57606a;padding-top:2px}
+dd{line-height:1.6}
+dd code{background:#eaeef2;border-radius:5px;padding:1px 6px;font-size:12.5px}
+table.mini{border-collapse:collapse;width:100%;font-size:13px;margin-top:4px}
+table.mini th,table.mini td{border:1px solid var(--linea);padding:7px 10px;text-align:left}
+table.mini th{background:#eaeef2;font-size:12px}
+footer{margin-top:36px;font-size:12.5px;color:#8b949e;text-align:center;line-height:1.8}
+@media (max-width:720px){dl{grid-template-columns:1fr}dt{margin-top:8px}}

@@ -1,0 +1,37 @@
+:root{
+  --verde:#1a7f37; --amarillo:#c2870b; --rojo:#d93025; --azul:#0b57d0; --sol:#e8a80b;
+  --bg:#f6f8fa; --card:#fff; --linea:#d0d7de; --texto:#1f2328;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--texto);padding:0 16px 40px}
+header{padding:24px 0 8px}
+header .volver{font-size:13px;text-decoration:none;color:var(--azul)}
+header h1{font-size:26px;margin:10px 0 6px}
+header .sub{max-width:980px;color:#57606a;font-size:14px;line-height:1.5}
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin:14px 0}
+#mapa{height:360px;border-radius:10px;border:1px solid var(--linea);background:#dfe6ee}
+.panel{background:var(--card);border:1px solid var(--linea);border-radius:10px;padding:16px;display:grid;gap:10px}
+.panel label{font-weight:700;font-size:14px}
+.panel input{padding:8px 10px;border:1px solid var(--linea);border-radius:8px;font-size:14px;width:100%}
+button{padding:9px 20px;border:0;border-radius:8px;background:var(--sol);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+button.mini{background:#eaeef2;color:var(--texto);font-size:12px;padding:6px 10px}
+button:hover{filter:brightness(0.96)}
+.atalho{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:#57606a}
+.nota{font-size:12.5px;color:#57606a;line-height:1.5}
+h2{margin:20px 0 8px;font-size:17px}
+.resumen{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tarjeta{background:var(--card);border:1px solid var(--linea);border-radius:10px;padding:14px 16px}
+.tarjeta h3{font-size:13px;color:#57606a;font-weight:600;margin-bottom:4px}
+.tarjeta p{font-size:22px;font-weight:700}
+.tarjeta .sub{font-size:12px;color:#57606a;font-weight:400}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-top:14px}
+.tarjetaG{background:var(--card);border:1px solid var(--linea);border-radius:10px;padding:14px}
+.tarjetaG h3{font-size:14px;margin-bottom:10px}
+.tarjetaG canvas{width:100%;max-width:640px}
+.texto ul{margin-left:20px;line-height:1.9;font-size:13.5px}
+.stringLegend{display:flex;gap:16px}
+#salida .resumen{margin-top:14px}
+.v{color:var(--verde)} .a{color:var(--amarillo)} .r{color:var(--rojo)}
+.ot{color:#57606a;font-size:13px}
+.oculto{display:none}
+footer{margin-top:30px;font-size:12px;color:#8b949e;text-align:center}

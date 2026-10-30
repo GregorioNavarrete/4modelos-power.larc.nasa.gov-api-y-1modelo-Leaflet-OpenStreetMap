@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo A · Simulador de Agricultura Inteligente</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <a class="volver" href="../../">← Panel de Demos</a>
+    <h1>🌱 Demo A · Simulador de Agricultura Inteligente y Resiliente</h1>
+    <p class="sub">Datos reales de la NASA POWER (T2M_MAX · T2M_MIN · PRECTOTCORR · RH2M, últimos 5 años) cruzados con una tabla de requerimientos de cultivos → <b>Semáforo de Riesgo Agrícola</b> + recomendación de riego. Inspirado en los ganadores “Henry’s Farm” y “Queñaris”.</p>
+  </header>
+
+  <section class="panel">
+    <div class="campo">
+      <label>Ubicación</label>
+      <select id="lugar">
+        <option value="-27.7842,-64.2644">Santiago del Estero (capital)</option>
+        <option value="-31.4295,-64.1808">Córdoba (capital)</option>
+        <option value="-31.5375,-68.5265">San Juan (capital)</option>
+        <option value="-24.7885,-65.4125">Salta (capital)</option>
+        <option value="-38.9516,-68.0457">Neuquén (capital)</option>
+        <option value="-34.6037,-58.3816">CABA</option>
+      </select>
+      <span class="o">o escriba lat,lon:</span>
+      <input type="text" id="latlon" placeholder="-27.7842,-64.2644" />
+      <button id="btnAnalizar">Analizar</button>
+    </div>
+    <p class="nota">Sin claves ni registro: la API de POWER es abierta. Los valores <b>-999</b> (relleno) se descartan; si POWER cae, se usa Open-Meteo como respaldo (se indica en pantalla).</p>
+  </section>
+
+  <section id="cargando" class="oculto">⏳ Consultando la NASA…</section>
+  <section id="error" class="oculto"></section>
+
+  <main id="salida" class="oculto">
+    <section class="resumen">
+      <div class="tarjeta"><h3>Rango analizado</h3><p id="rango">—</p></div>
+      <div class="tarjeta"><h3>Fuente de datos</h3><p id="fuente">—</p></div>
+      <div class="tarjeta"><h3>Días con datos</h3><p id="dias">—</p></div>
+      <div class="tarjeta"><h3>Lluvia total</h3><p id="lluvia">—</p></div>
+      <div class="tarjeta"><h3>Días ≥ 35 °C (ola de calor)</h3><p id="olas">—</p></div>
+    </section>
+
+    <h2>Semáforo de Riesgo Agrícola por cultivo</h2>
+    <p class="nota">Leyenda: 🟢 apto · 🟡 atento (riego con mallas) · 🔴 riesgo alto. Los umbrales son criterios agronómicos genéricos editables en <code>app.js</code>.</p>
+    <table id="tablaCultivos">
+      <thead>
+        <tr><th>Cultivo</th><th>Ciclo</th><th>Agua necesaria</th><th>Riesgo calor</th><th>Riesgo agua</th><th>Semáforo</th><th>Recomendación</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>Recomendación de riego (deficit diario)</h2>
+    <div id="recRiego" class="recRiego"></div>
+
+    <h2>¿Qué genera este historial? (día típico)</h2>
+    <div class="chicos">
+      <div class="tarjeta"><h3>T2M_MAX prom. mes más cálido</h3><p id="calido">—</p></div>
+      <div class="tarjeta"><h3>T2M_MAX prom. mes más frío</h3><p id="frio">—</p></div>
+      <div class="tarjeta"><h3>RH2M promedio</h3><p id="humedad">—</p></div>
+      <div class="tarjeta"><h3>Días con lluvia ≥ 5 mm</h3><p id="dias5">—</p></div>
+    </div>
+  </main>
+
+  <footer>Panel de Demos · NASA Space Apps 2026 · Santiago del Estero (14–15 nov)</footer>
+  <script src="app.js"></script>
+</body>
+</html>

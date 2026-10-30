@@ -1,0 +1,12 @@
+{
+  "name": "demo-c-energia",
+  "version": "1.0.0",
+  "description": "Demo C: Calculadora de Viabilidad para Granjas Solares o Eolicas (NASA POWER climatology ALLSKY_SFC_SW_DWN + WS10M)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

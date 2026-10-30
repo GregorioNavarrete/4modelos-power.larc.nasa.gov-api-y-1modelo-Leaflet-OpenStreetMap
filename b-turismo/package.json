@@ -1,0 +1,12 @@
+{
+  "name": "demo-b-turismo",
+  "version": "1.0.0",
+  "description": "Demo B: Planificador de Turismo y Eventos Climaticos Seguros (NASA POWER 25 anios -> Indice de Confort y Riesgo)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

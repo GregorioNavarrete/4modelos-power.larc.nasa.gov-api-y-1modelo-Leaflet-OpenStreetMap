@@ -1,0 +1,12 @@
+{
+  "name": "panel-demos-climaticas",
+  "version": "1.0.0",
+  "description": "Panel que lista y sirve las 4 demos climaticas (NASA POWER). npm start -> http://localhost:3100",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo D · Alerta Temprana de Sequía</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <a class="volver" href="../../">← Panel de Demos</a>
+    <h1>🚨 Demo D · Alerta Temprana de Estrés Hídrico y Sequías</h1>
+    <p class="sub">Dashboard con <b>semáforo verde / amarillo / rojo</b> que cruza la <b>precipitación acumulada</b> de los últimos 90 días contra la <b>demanda evaporativa estimada (ET0, fórmula de Hargreaves)</b> calculada con T2M_MAX/T2M_MIN, y compara el periodo actual contra el <b>historial de 5 años</b> de la NASA POWER. Pensado para defensa civil, municipios y organismos de cuencas.</p>
+  </header>
+
+  <section class="panel">
+    <div class="campo">
+      <label>Zona monitoreada</label>
+      <select id="lugar">
+        <option value="-27.7842,-64.2644">Santiago del Estero (capital)</option>
+        <option value="-28.4696,-62.8509">Loreto (interior SE)</option>
+        <option value="-31.4295,-64.1808">Córdoba (capital)</option>
+        <option value="-24.1858,-65.2995">Salta (capital)</option>
+        <option value="-34.9215,-57.9727">La Plata</option>
+      </select>
+      <span class="ot">o:</span>
+      <input type="text" id="latlon" placeholder="lat,lon" />
+      <button id="btnD">Evaluar</button>
+    </div>
+    <p class="nota">Umbral de ventana: <b>90 días móviles</b>. Clasificación: mix de percentil de precip (vs 5 años) y déficit hídrico mm. Todo el criterio queda expuesto más abajo.</p>
+  </section>
+
+  <section id="cargando" class="oculto">⏳ Consultando la NASA…</section>
+  <section id="error" class="oculto"></section>
+
+  <main id="salida" class="oculto">
+    <section class="hero">
+      <div id="farol" class="farol"><span id="farolNum"></span><small id="farolTxt"></small></div>
+      <div class="veredicto">
+        <h2 id="tituloS">—</h2>
+        <p id="textoS">—</p>
+      </div>
+    </section>
+
+    <section class="resumen">
+      <div class="tarjeta"><h3>Σ Lluvia 90 d</h3><p id="p90">—</p></div>
+      <div class="tarjeta"><h3>Σ ET0 90 d (Hargreaves)</h3><p id="e90">—</p></div>
+      <div class="tarjeta"><h3>Déficit hídrico 90 d</h3><p id="d90">—</p></div>
+      <div class="tarjeta"><h3>Percentil de lluvia (5 a.)</h3><p id="per">—</p></div>
+      <div class="tarjeta"><h3>Días desde la última lluvia</h3><p id="sinL">—</p></div>
+    </section>
+
+    <h2>Evolución de los últimos 180 días</h2>
+    <canvas id="grafico" width="940" height="300"></canvas>
+    <p class="nota">Barras azules: lluvia diaria (mm). Línea roja: déficit acumulado (P−ET0) sobre 30 días móviles. </p>
+
+    <section id="seccion4"></section>
+  </main>
+
+  <footer>Panel de Demos · NASA Space Apps 2026 · Santiago del Estero (14–15 nov)</footer>
+  <script src="app.js"></script>
+</body>
+</html>

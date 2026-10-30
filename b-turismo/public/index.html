@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo B · Planificador de Turismo y Eventos Seguros</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <a class="volver" href="../../">← Panel de Demos</a>
+    <h1>🎪 Demo B · Planificador de Turismo y Eventos Climáticos Seguros</h1>
+    <p class="sub">Elegí un <b>rango de fechas</b> (ej: “14–16 de noviembre”) y la app analiza cómo se comportó <b>esa misma ventana climática de calendario en los últimos ~25 años</b> con datos de la NASA POWER. Genera un <b>Índice de Confort y Riesgo</b>, un semáforo y <b>horarios/fechas alternativas más seguras</b>. Inspirado en SkySense (ganador del desafío de probabilidad meteorológica 2025).</p>
+  </header>
+
+  <section class="panel">
+    <div class="campo">
+      <label>Ubicación</label>
+      <select id="lugar">
+        <option value="-27.7842,-64.2644">Santiago del Estero (capital)</option>
+        <option value="-24.1858,-65.2995">Salta (capital)</option>
+        <option value="-31.4295,-64.1808">Córdoba (capital)</option>
+        <option value="-32.9507,-60.6585">Rosario</option>
+        <option value="-41.1335,-71.3103">Bariloche</option>
+        <option value="-51.6230,-69.2165">El Calafate</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label>Fechas del evento</label>
+      <input type="date" id="desde" value="2026-11-14" />
+      <span>→</span>
+      <input type="date" id="hasta" value="2026-11-15" />
+      <button id="btnAnalizar">Analizar riesgo</button>
+    </div>
+    <p class="nota">Probabilidad histórica ≠ pronóstico: responde “en esta fecha del año, históricamente, ¿qué probabilidad hay de calor intenso / viento fuerte / lluvia?” usando 25 repeticiones de la ventana.</p>
+  </section>
+
+  <section id="cargando" class="oculto">⏳ Bajando 25 años de historial… puede tardar unos segundos</section>
+  <section id="error" class="oculto"></section>
+
+  <main id="salida" class="oculto">
+    <section class="hero">
+      <div id="gauge" class="gauge"><span id="gaugeNum">—</span><small id="gaugeTxt"></small></div>
+      <div class="veredicto">
+        <h2 id="tituloVeredicto">—</h2>
+        <p id="textoVeredicto">—</p>
+        <p id="alertas">—</p>
+      </div>
+    </section>
+
+    <section class="probs">
+      <div class="prob"><canvas id="cPrecip" width="260" height="120"></canvas><p>Probabilidad de lluvia (≥ 2 mm/día)</p></div>
+      <div class="prob"><canvas id="cCalor" width="260" height="120"></canvas><p>Probabilidad de calor fuerte (T<sub>max</sub> ≥ 32 °C)</p></div>
+      <div class="prob"><canvas id="cViento" width="260" height="120"></canvas><p>Probabilidad de viento fuerte (WS10M ≥ 10.8 m/s ≈ 39 km/h)</p></div>
+    </section>
+
+    <h2>Detalles de la ventana analizada</h2>
+    <table id="tablaDet">
+      <thead><tr><th>Variable</th><th>Mediana histórica</th><th>Casos extremos</th><th>Casos con dato</th><th>Fuente</th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <h2>🗓 Fechas alternativas más seguras (próximos 90 días)</h2>
+    <div id="alternativas" class="chips"></div>
+    <p class="nota">Se recorrió el calendarioño comparando TODAS las ventanas de calendario de tus ±90 días históricos con la tuya, y se listan las ventanas con menor Índice de Riesgo. Es una ayuda para re-agendar, no un pronóstico.</p>
+  </main>
+
+  <footer>Panel de Demos · NASA Space Apps 2026 · Santiago del Estero (14–15 nov)</footer>
+  <script src="app.js"></script>
+</body>
+</html>

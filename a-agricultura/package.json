@@ -1,0 +1,12 @@
+{
+  "name": "demo-a-agricultura",
+  "version": "1.0.0",
+  "description": "Demo A: Simulador de Agricultura Inteligente y Resiliente (NASA POWER + tabla de cultivos -> Semaforo de Riesgo Agricola)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
